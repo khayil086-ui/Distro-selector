@@ -71,9 +71,9 @@ if ABOUT:
     print("Features a 1-in-10 Arch bias and a 1-in-500 TempleOS drop rate.")
     print("\nCopyright (c) 2026")
     print("Developed by:")
-    print("  Yaffs2     (https://github.com)")
-    print("  khayil086  (https://github.com)")
-    print("  Project    (https://github.com)")
+    print("  Yaffs2     (https://github.com/Yaffs2)")
+    print("  khayil086  (https://github.com/Khayil086-ui)")
+    print("  Project    (https://github.com/Khayil086-ui/Distro-selector)")
     sys.exit(0)
 
 rolls = 0
