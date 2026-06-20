@@ -22,11 +22,59 @@ MESSAGES = [
     "Sacrificing RAM to the penguin...",
     "Downloading more RAM...",
     "Arguing about systemd...",
-    "Installing packages..."
+    "Installing packages...",
+    "Checking swap space...",
+    "Re-reading the man pages...",
+    "Reticulating splines...",
+    "Searching Stack Overflow...",
+    "Blaming systemd...",
+    "Regretting deleting the french language pack...",
+    "Updating packages...",
+    "Configuring Xorg servers...",
+    "Parsing config files...",
+    "Arguing with Windows users...",
+    "Fixing broken GRUB bootloader entries...",
+    "Waiting for the Debian stable release team...",
+    "Recompiling xmonad configuration layout..."
 ]
 
+FRUSTRATED_REMARKS = [
+    "Are you ever going to actually install it?",
+    "I am getting warm from all this indecision...",
+    "My CPU cycles are dying for your indecisiveness.",
+    "Just pick one and run sudo rm -rf / already.",
+    "We have been doing this for a while. Are we done yet?",
+    "Is this what you do with your free time?"
+]
+
+# Command line argument handling
+HELP = "--help" in sys.argv or "-h" in sys.argv
+ABOUT = "--about" in sys.argv
 FORCE_RARE = "--force-rare" in sys.argv
 DEBUG = "--debug" in sys.argv or "--verbose" in sys.argv
+
+if HELP:
+    print("Distro Selector - Help Menu")
+    print("\nUsage:")
+    print("  python3 distro-selector.py [flags]")
+    print("\nFlags:")
+    print("  --help, -h    Show this help menu")
+    print("  --about       Show project background and developer credits")
+    print("  --force-rare  Bypass random probability to force a TempleOS output")
+    print("  --debug       Skip artificial delays and output internal rolling math")
+    print("  --verbose     Alias for the --debug command line flag")
+    sys.exit(0)
+
+if ABOUT:
+    print("Distro Selector - About")
+    print("\nA randomized terminal utility built to select Linux distributions.")
+    print("Features a 1-in-10 Arch bias and a 1-in-500 TempleOS drop rate.")
+    print("\nCopyright (c) 2026")
+    print("Developed by:")
+    print("  Yaffs2     (https://github.com)")
+    print("  khayil086  (https://github.com)")
+    print("  Project    (https://github.com)")
+    sys.exit(0)
 
 rolls = 0
 
@@ -35,15 +83,52 @@ def print_debug(msg):
     if DEBUG:
         print(f"[DEBUG] {msg}")
 
+def run_progress_bar(total_duration):
+    """Simulates a terminal compilation progress bar over an exact duration."""
+    steps = list(range(1, 101))
+    delay_per_step = total_duration / len(steps)
+
+    for progress in steps:
+        time.sleep(delay_per_step)
+        sys.stdout.write(f"\rProgress: [{progress}%]")
+        sys.stdout.flush()
+    print() # Newline clear
+
 def generate_distro():
-    # Bypass long time.sleep delays if debugging to speed up profiling
     if DEBUG:
         print_debug("Skipping message delays for active debugging.")
         print(random.choice(MESSAGES))
     else:
-        for _ in range(3):
-            print(random.choice(MESSAGES))
-            time.sleep(1)
+        # Enforced message output sequence length between 3 and 10 iterations
+        message_count = random.randint(3, 10)
+        max_unique = min(message_count, len(MESSAGES))
+        chosen_messages = random.sample(MESSAGES, max_unique)
+
+        # Uncommon 1-in-8 chance to inject Gentoo compilation
+        if random.randint(1, 8) == 1:
+            chosen_messages.append("Compiling Gentoo packages from source...")
+
+        # Rare 1-in-15 chance to inject LFS compilation
+        if random.randint(1, 15) == 1:
+            chosen_messages.append("Building Linux From Scratch (LFS) toolchain...")
+
+        # Shuffle final array so special tasks don't always resolve at the absolute end
+        random.shuffle(chosen_messages)
+
+        for msg in chosen_messages:
+            print(msg)
+
+            # Special Trigger Case: Gentoo compilation (Exactly 5 seconds)
+            if msg == "Compiling Gentoo packages from source...":
+                run_progress_bar(5.0)
+
+            # Special Trigger Case: LFS compilation (Exactly 10 seconds)
+            elif msg == "Building Linux From Scratch (LFS) toolchain...":
+                run_progress_bar(10.0)
+
+            # Default line resolution delay
+            else:
+                time.sleep(random.uniform(0.2, 1.3))
 
     if FORCE_RARE:
         print_debug("Force Rare override active: Bypassing RNG gates.")
@@ -60,7 +145,6 @@ def generate_distro():
     arch_roll = random.randint(1, 10)
     print_debug(f"Arch Bias Roll: Generated {arch_roll} (Triggers on 1)")
     if arch_roll == 1:
-        print("The computer has an Arch bias today.")
         return "Arch"
 
     # Standard Pool Draw
@@ -77,14 +161,14 @@ if DEBUG:
     print("\n==================================")
     print("   VERBOSE DIAGNOSTIC OVERVIEW   ")
     print("==================================")
-    print_debug(f"Python Runtime Environment: {sys.version.split()[0]}")
+    print_debug(f"Python Runtime Environment: {sys.version.split()}")
     print_debug(f"Runtime CLI Arguments: {sys.argv[1:]}")
     print_debug(f"Configured Pool Size: {len(DISTROS)} entries")
     print_debug(f"Configured Loading Messages: {len(MESSAGES)} entries")
     print_debug(f"Force Rare Override Status: {FORCE_RARE}")
     print("==================================\n")
 
-# Wrap the execution loop to safely intercept SIGINT / Ctrl+C signals
+# Wrap execution loop to safely intercept SIGINT / Ctrl+C signals
 try:
     while True:
         input("Press ENTER to generate a random distro...")
@@ -92,13 +176,29 @@ try:
         rolls += 1
         print(f"\nRoll #{rolls}")
 
+        # Post-Roll #5 processing commentary trigger
+        if rolls > 5 and not DEBUG:
+            if random.randint(1, 3) == 1:
+                print(f"[{random.choice(FRUSTRATED_REMARKS)}]")
+                time.sleep(1.8)
+
         chosen_distro = generate_distro()
 
         print("Computer chooses...")
         if not DEBUG:
-            time.sleep(1.5) # Instant resolution during active debugging
+            time.sleep(random.uniform(1.0, 2.0))
 
         print(f"====== {chosen_distro} ======\n")
+
+        # Contextual result reactions consolidated into a single evaluation block
+        if chosen_distro == "Ubuntu":
+            print("you wanna snap today huh?\n")
+
+        elif chosen_distro == "RedStarOS":
+            print("The computer will spy on you for the rest of the day...\n")
+
+        elif chosen_distro == "Arch":
+            print("The computer has an Arch bias today.\n")
 
         retry = input("Try again? [Y/N]\n> ")
 
