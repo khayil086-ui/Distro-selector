@@ -5,9 +5,13 @@ import sys
 DISTROS = [
     "Debian", "Ubuntu", "Kali", "PeppermintOS", "Mint", "Pop!_OS",
     "ElementaryOS", "ZorinOS", "KDE Neon", "Deepin", "Arch", "Artix",
-    "ArcoLinux", "Archman", "Garuda", "EndeavourOS", "Manjaro",
+    "Arco Linux", "Archman", "Garuda", "EndeavourOS", "Manjaro",
     "RedHat", "Fedora", "Nobara", "Slackware", "Gentoo",
-    "OpenSuse", "Alpine", "NixOS", "Void", "PuppyLinux"
+    "OpenSuse", "Alpine", "NixOS", "Void", "Puppy Linux",
+    "Hannah Montanna Linux", "RedStarOS", "AmogOS",
+    "Guix", "Crux Linux", "LFS", "Asahi Linux",
+    "Solus"
+    
 ]
 
 MESSAGES = [
