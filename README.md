@@ -10,8 +10,8 @@ A randomized command-line utility built in Python to select Linux distributions.
 
 ## Usage
 
-python3 distro-selector.py -- The main game
-python3 distro-selector.py --help, -h -- Show help menu.
-python3 distro-selector.py --about --Show project background and developer credits. 
-python3 distro-selector.py --force-rare -- Bypass random probability to force a TempleOS output.
-python3 distro-selector.py --debug (or --verbose) -- Shows Skip artificial delays and output internal rolling math.
+* python3 distro-selector.py -- The main game
+* python3 distro-selector.py --help, -h -- Show help menu.
+* python3 distro-selector.py --about --Show project background and developer credits. 
+* python3 distro-selector.py --force-rare -- Bypass random probability to force a TempleOS output.
+* python3 distro-selector.py --debug (or --verbose) -- Shows Skip artificial delays and output internal rolling math.
