@@ -7,7 +7,6 @@ A randomized command-line utility built in Python to select Linux distributions.
 * Comprehensive pool covering mainstream, independent, and legacy distributions.
 * Automated 1-in-10 probability bias toward Arch Linux.
 * Rare 1-in-500 probability drop rate for TempleOS.
-* Clean signal handling for graceful keyboard interrupts (Ctrl+C).
 
 ## Usage
 
