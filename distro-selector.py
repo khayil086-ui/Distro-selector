@@ -44,7 +44,9 @@ FRUSTRATED_REMARKS = [
     "My CPU cycles are dying for your indecisiveness.",
     "Just pick one and run sudo rm -rf / already.",
     "We have been doing this for a while. Are we done yet?",
-    "Is this what you do with your free time?"
+    "Is this what you do with your free time?",
+    "Will you ever do something useful with your life?",
+    "Are you just gonna sit and stare at a monitor all day?"
 ]
 
 
