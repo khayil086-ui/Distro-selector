@@ -47,7 +47,7 @@ FRUSTRATED_REMARKS = [
     "Is this what you do with your free time?"
 ]
 
-# Command line argument handling
+
 HELP = "--help" in sys.argv or "-h" in sys.argv
 ABOUT = "--about" in sys.argv
 FORCE_RARE = "--force-rare" in sys.argv
@@ -92,41 +92,34 @@ def run_progress_bar(total_duration):
         time.sleep(delay_per_step)
         sys.stdout.write(f"\rProgress: [{progress}%]")
         sys.stdout.flush()
-    print() # Newline clear
+    print()
 
 def generate_distro():
     if DEBUG:
         print_debug("Skipping message delays for active debugging.")
         print(random.choice(MESSAGES))
     else:
-        # Enforced message output sequence length between 3 and 10 iterations
         message_count = random.randint(3, 10)
         max_unique = min(message_count, len(MESSAGES))
         chosen_messages = random.sample(MESSAGES, max_unique)
 
-        # Uncommon 1-in-8 chance to inject Gentoo compilation
         if random.randint(1, 8) == 1:
             chosen_messages.append("Compiling Gentoo packages from source...")
 
-        # Rare 1-in-15 chance to inject LFS compilation
         if random.randint(1, 15) == 1:
             chosen_messages.append("Building Linux From Scratch (LFS) toolchain...")
 
-        # Shuffle final array so special tasks don't always resolve at the absolute end
         random.shuffle(chosen_messages)
 
         for msg in chosen_messages:
             print(msg)
 
-            # Special Trigger Case: Gentoo compilation (Exactly 5 seconds)
             if msg == "Compiling Gentoo packages from source...":
                 run_progress_bar(5.0)
 
-            # Special Trigger Case: LFS compilation (Exactly 10 seconds)
             elif msg == "Building Linux From Scratch (LFS) toolchain...":
                 run_progress_bar(10.0)
 
-            # Default line resolution delay
             else:
                 time.sleep(random.uniform(0.2, 1.3))
 
@@ -134,20 +127,17 @@ def generate_distro():
         print_debug("Force Rare override active: Bypassing RNG gates.")
         return "TempleOS"
 
-    # TempleOS Roll (1 in 500)
     temple_roll = random.randint(1, 500)
     print_debug(f"TempleOS Roll: Generated {temple_roll} (Triggers on 1)")
     if temple_roll == 1:
         print("[ULTRA RARE DISTRO FOUND]")
         return "TempleOS"
 
-    # Arch Bias Roll (1 in 10)
     arch_roll = random.randint(1, 10)
     print_debug(f"Arch Bias Roll: Generated {arch_roll} (Triggers on 1)")
     if arch_roll == 1:
         return "Arch"
 
-    # Standard Pool Draw
     print_debug(f"Proceeding to core pool selection. Pool size: {len(DISTROS)}")
     chosen = random.choice(DISTROS)
     print_debug(f"Selected item index: {DISTROS.index(chosen)} -> Value: '{chosen}'")
@@ -156,7 +146,6 @@ def generate_distro():
 
 print("Random Distro Chooser.")
 
-# Startup Diagnostics Report
 if DEBUG:
     print("\n==================================")
     print("   VERBOSE DIAGNOSTIC OVERVIEW   ")
@@ -166,9 +155,8 @@ if DEBUG:
     print_debug(f"Configured Pool Size: {len(DISTROS)} entries")
     print_debug(f"Configured Loading Messages: {len(MESSAGES)} entries")
     print_debug(f"Force Rare Override Status: {FORCE_RARE}")
-    print("==================================\n")
-
-# Wrap execution loop to safely intercept SIGINT / Ctrl+C signals
+    print("==================================\n")   
+    
 try:
     while True:
         input("Press ENTER to generate a random distro...")
@@ -176,7 +164,7 @@ try:
         rolls += 1
         print(f"\nRoll #{rolls}")
 
-        # Post-Roll #5 processing commentary trigger
+        
         if rolls > 5 and not DEBUG:
             if random.randint(1, 3) == 1:
                 print(f"[{random.choice(FRUSTRATED_REMARKS)}]")
@@ -190,7 +178,7 @@ try:
 
         print(f"====== {chosen_distro} ======\n")
 
-        # Contextual result reactions consolidated into a single evaluation block
+    
         if chosen_distro == "Ubuntu":
             print("you wanna snap today huh?\n")
 
