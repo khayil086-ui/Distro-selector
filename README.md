@@ -1,6 +1,7 @@
 # Distro Selector
 
 A randomized command-line utility built in Python to select Linux distributions.
+This chooses a random distro that you should try.
 
 ## Features
 
